@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Webpage - Sueda Nisa Okutan</title>
+
+  <style>
+    :root {
+      --bg-color1: #ffffff;
+      --bg-color2: #f8f8f8;
+      --bg-color3: #f0f1f3;
+      --bg-color1-faded1: #ffffffee;
+      --text-color1: #212836;
+      --text-color2: #555;
+      --text-color3: #888;
+      --accent-color: #0067b9;
+      --border-color: rgba(125, 125, 125, 0.5);
+    }
+
+    body.dark {
+      --bg-color1: #101820;
+      --bg-color2: #293038;
+      --bg-color3: #3a424b;
+      --bg-color1-faded1: #101820ee;
+      --text-color1: #e5e5e5;
+      --text-color2: #ccc;
+      --text-color3: #aaa;
+      --accent-color: #92befc;
+      --border-color: rgba(125, 125, 125, 0.5);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body:not(.light) {
+        --bg-color1: #101820;
+        --bg-color2: #293038;
+        --bg-color3: #3a424b;
+        --bg-color1-faded1: #101820ee;
+        --text-color1: #e5e5e5;
+        --text-color2: #ccc;
+        --text-color3: #aaa;
+        --accent-color: #92befc;
+        --border-color: rgba(125, 125, 125, 0.5);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg-color1);
+      color: var(--text-color1);
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 55;
+      transition: padding-left 0.25s ease;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0.75rem;
+      background: var(--bg-color1);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .header-left,
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      border: none;
+      background: none;
+      color: var(--text-color1);
+      cursor: pointer;
+      border-radius: 0.5rem;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.92rem;
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-color2);
+    }
+
+    /* Theme icon toggle: show moon in light mode, sun in dark mode */
+    #sun-icon  { display: none; }
+    #moon-icon { display: none; }
+
+    body.light #moon-icon { display: block; }
+    body.dark  #sun-icon  { display: block; }
+
+    .menu-btn {
+      position: fixed;
+      top: 0.5rem;
+      left: 0.5rem;
+      transition: left 0.25s ease;
+      width: 2.5rem;
+      height: 2.5rem;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 90;
+      border-radius: 0.5rem;
+      border: none;
+      background: none;
+      color: var(--text-color1);
+      cursor: pointer;
+    }
+
+    .menu-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+      width: 1rem;
+    }
+
+    .menu-lines span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--text-color1);
+      border-radius: 999px;
+      transition: background 0.15s ease;
+    }
+
+    .menu-btn:hover .menu-lines span,
+    .menu-btn:hover .menu-chevron {
+      background: transparent;
+      color: var(--accent-color);
+    }
+
+    .menu-btn:hover .menu-lines span {
+      background: var(--accent-color);
+    }
+
+    .menu-chevron {
+      display: none;
+    }
+
+    .menu-btn.open .menu-lines {
+      display: none;
+    }
+
+    .menu-btn.open .menu-chevron {
+      display: block;
+    }
+
+    .menu-btn.open {
+      left: calc(240px + 0.5rem);
+    }
+
+    .page-shell {
+      flex: 1;
+      width: 100%;
+    }
+
+    .layout {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0 2rem;
+    }
+
+    .document {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bodywrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    main.body {
+      width: 100%;
+      max-width: 860px;
+      padding: 1.25rem 2rem 4rem 1rem;
+      line-height: 1.5;
+    }
+
+    .body p {
+      color: var(--text-color1);
+      margin: 0.25em 0 0.75em 0;
+      line-height: 1.5em;
+    }
+
+    .body h1,
+    .body h2,
+    .body h3 {
+      font-family: Barlow, Arial, sans-serif;
+      font-weight: 500;
+      margin: 0;
+      padding: 1em 0 0.4em 0;
+      color: var(--text-color1);
+      position: relative;
+    }
+
+    .body h1 { font-size: 1.85em; }
+    .body h2 { font-size: 1.45em; }
+    .body h3 {
+      font-size: 1.12em;
+      padding-top: 0.65em;
+    }
+
+    .body p a {
+      color: var(--accent-color);
+      border-bottom: 1px solid rgba(125,125,125,.25);
+    }
+
+    .body p a:hover {
+      border-color: var(--text-color2);
+    }
+
+    section {
+      scroll-margin-top: 4.25rem;
+    }
+
+    .page-intro {
+      color: var(--text-color2);
+      margin-top: 0.25rem;
+    }
+
+    .entry {
+      margin-bottom: 1.25rem;
+    }
+
+    .entry-meta {
+      color: var(--text-color2);
+      font-size: 0.95rem;
+      margin-top: -0.1rem;
+    }
+
+    .heading-link {
+      color: var(--accent-color);
+      margin-left: 0.3rem;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      font-weight: normal;
+      user-select: none;
+    }
+
+    h2:hover .heading-link,
+    h3:hover .heading-link {
+      opacity: 1;
+    }
+
+    .body h2:hover,
+    .body h3:hover {
+      color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .tocwrapper li.toc-h3 {
+      padding-left: 1em;
+      font-size: 0.93em;
+    }
+
+    /* Right TOC is fixed so it never moves when the left drawer pushes content */
+    .localtoc {
+      position: fixed;
+      top: 3.5rem;
+      right: 2rem;
+      width: 220px;
+      padding-top: 1rem;
+      max-height: calc(100vh - 4.5rem);
+      overflow-y: auto;
+    }
+
+    .toc-sticky {
+      padding-top: 0;
+    }
+
+    .tocwrapper {
+      width: 100%;
+      max-height: calc(100vh - 4.5rem);
+      overflow-y: auto;
+      font-size: 0.9em;
+      background: var(--bg-color1);
+    }
+
+    .tocwrapper nav {
+      border-left: 1px solid var(--border-color);
+      padding-left: 1rem;
+      color: var(--text-color2);
+    }
+
+    .toc-header {
+      padding-left: 1rem;
+      margin-bottom: 1em;
+      color: var(--text-color3);
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toc-header:hover {
+      color: var(--accent-color);
+    }
+
+    .toc-header::before {
+      content: "On this page:";
+    }
+
+    .tocwrapper ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tocwrapper li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .tocwrapper a {
+      display: inline-block;
+      padding: 0.25em 0;
+      color: var(--text-color2);
+      letter-spacing: 0.005em;
+    }
+
+    .tocwrapper a:hover {
+      color: var(--accent-color);
+    }
+
+    .tocwrapper a.active {
+      color: var(--accent-color);
+      font-weight: bold;
+      letter-spacing: -0.008em;
+    }
+
+    .toc-panel-mobile {
+      position: fixed;
+      top: 3.5rem;
+      right: 0;
+      width: 20rem;
+      max-width: 90vw;
+      height: calc(100vh - 3.5rem);
+      background: var(--bg-color1);
+      box-shadow: -0.3rem 0 0.3rem rgba(0,0,0,.1), 0 0 0.075rem rgba(0,0,0,.15);
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      z-index: 30;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .toc-panel-mobile.open {
+      transform: translateX(0);
+    }
+
+    .toc-overlay {
+      position: fixed;
+      inset: 3.5rem 0 0 0;
+      background: rgba(0,0,0,.05);
+      display: none;
+      z-index: 25;
+    }
+
+    .toc-overlay.show {
+      display: block;
+    }
+
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-color3);
+      font-style: italic;
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.9rem 2rem;
+      font-size: 0.88rem;
+    }
+
+    /* ── LEFT DRAWER ── */
+    .left-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background: var(--bg-color1);
+      border-right: 1px solid var(--border-color);
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      z-index: 70;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer-top {
+      flex-shrink: 0;
+      padding: 3.5rem 1rem 0;
+    }
+
+    .drawer-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .drawer-footnote {
+      flex-shrink: 0;
+      padding: 0 1rem 1rem;
+      font-size: 0.75em;
+      color: var(--text-color3);
+      font-style: italic;
+      text-align: center;
+    }
+
+    .drawer-footnote p {
+      margin: 0.5rem 0 0;
+    }
+
+    .left-drawer.open {
+      transform: translateX(0);
+    }
+
+    .left-overlay {
+      position: fixed;
+      inset: 3.5rem 0 0 240px;
+      background: transparent;
+      display: none;
+      z-index: 65;
+    }
+
+    .left-overlay.show {
+      display: block;
+    }
+
+    /* Push only main content + footer; right TOC is fixed so it stays put */
+    .document,
+    footer {
+      transition: margin-left 0.25s ease;
+    }
+
+    .document.drawer-open,
+    footer.drawer-open {
+      margin-left: 240px;
+    }
+
+
+    .drawer-profile {
+      padding: 0.75rem 0.5rem 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .drawer-profile-name {
+      font-weight: 600;
+      font-size: 0.95em;
+      color: var(--text-color1);
+    }
+
+    .drawer-profile-sub {
+      font-size: 0.8em;
+      color: var(--text-color3);
+      line-height: 1.4;
+    }
+
+    .drawer-section-label {
+      font-size: 0.72em;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-color3);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .drawer-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .drawer-nav li a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.35rem;
+      color: var(--text-color2);
+      font-size: 0.9em;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .drawer-nav li a:hover {
+      background: var(--bg-color2);
+      color: var(--text-color1);
+    }
+
+    .drawer-nav li a.active-page {
+      background: var(--bg-color3);
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .drawer-nav li a .nav-icon {
+      font-size: 1em;
+      width: 1.1em;
+      text-align: center;
+      flex-shrink: 0;
+      opacity: 0.75;
+    }
+
+    .drawer-nav li.nav-sub a {
+      padding-left: 1.5rem;
+      font-size: 0.85em;
+      color: var(--text-color3);
+    }
+
+    .drawer-divider {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 0;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .quick-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.35rem;
+      color: var(--text-color2);
+      font-size: 0.9em;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .quick-links a:hover {
+      background: var(--bg-color2);
+      color: var(--text-color1);
+    }
+
+    .quick-links .nav-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 64.99em) {
+      .layout {
+        padding: 0 1rem;
+      }
+
+      main.body {
+        max-width: none;
+        padding: 1.25rem 0.5rem 4rem 0.5rem;
+      }
+
+      .localtoc {
+        display: none;
+      }
+
+      .toc-panel-mobile {
+        display: block;
+      }
+
+      /* On small screens drawer overlays instead of pushing */
+      .document.drawer-open,
+      footer.drawer-open {
+        margin-left: 0;
+      }
+
+    }
+
+    @media (min-width: 65em) {
+      .toc-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="icon-btn menu-btn" aria-label="Menu">
+    <span class="menu-lines">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <svg class="menu-chevron" width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+
+  <header>
+    <div class="header-left"></div>
+
+    <div class="header-right">
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle theme">
+        <!-- Sun: shown in dark mode -->
+        <svg id="sun-icon" width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1"  x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1"  y1="12" x2="3"  y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon: shown in light mode -->
+        <svg id="moon-icon" width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="currentColor">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="icon-btn toc-toggle" id="toc-toggle">On this page</button>
+    </div>
+  </header>
+
+  <!-- LEFT DRAWER -->
+  <aside class="left-drawer" id="left-drawer">
+
+    <div class="drawer-top">
+      <div class="drawer-profile">
+        <div class="drawer-profile-name">Sueda Nisa Okutan</div>
+        <div class="drawer-profile-sub">Industrial & Computer Engineering Student at Boğaziçi University</div>
+      </div>
+    </div>
+
+    <div class="drawer-scroll">
+
+    <div class="drawer-nav">
+      <div class="drawer-section-label">Navigation:</div>
+      <ul>
+        <li>
+          <a href="index.html" class="active-page">
+            <span class="nav-icon"></span> Home
+          </a>
+        </li>
+        <li class="nav-sub">
+          <a href="#contact">
+            <span class="nav-icon"></span> Contact & CV
+          </a>
+        </li>
+        <li>
+          <a href="projects.html">
+            <span class="nav-icon"></span> Projects
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div style="margin-top: auto;">
+      <div class="drawer-section-label">Profiles:</div>
+      <div class="quick-links">
+        <a href="https://github.com/sueda-okutan" target="_blank" rel="noopener" title="GitHub">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/sueda-nisa-okutan-a091b7252/" target="_blank" rel="noopener" title="LinkedIn">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="mailto:sueda.okutan@std.bogazici.edu.tr" title="Email">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+        </a>
+        <a href="sueda_okutan_cv.pdf" target="_blank" rel="noopener" title="CV / Resume">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    </div> <!-- end drawer-scroll -->
+
+  </aside>
+
+  <div class="page-shell">
+    <div class="layout">
+      <div class="document">
+        <div class="bodywrapper">
+          <main class="body" id="top-anchor">
+            <section id="home">
+              <h1>
+                Sueda Nisa Okutan
+              </h1>
+            </section>
+
+            <section id="about">
+              <h2>
+                About
+                <a class="heading-link" href="#about">#</a>
+              </h2>
+              <p>I am a third year student at Boğaziçi University, studying Industrial Engineering and Computer Engineering. My interests include optimization, algorithms, statistical modeling, simulation, and  I love implement and experiment with these topics.
+                I am especially interested in design of systems and algorithms: how problems are modeled, what abstractions are used, and how design decisions and trade-offs are made under different constraints.
+              </p>
+            </section>
+
+            <section id="contact">
+              <h2>
+                Contact &amp; CV
+                <a class="heading-link" href="#contact">#</a>
+              </h2>
+              <p>
+                <svg style="vertical-align:middle;margin-right:0.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+                <a href="mailto:sueda.okutan@std.bogazici.edu.tr" target="_blank" rel="noopener">sueda.okutan@std.bogazici.edu.tr</a>
+              </p>
+              <p>
+                <svg style="vertical-align:middle;margin-right:0.4em" viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+                <a href="https://github.com/sueda-okutan" target="_blank" rel="noopener">github.com/sueda-okutan</a>
+              </p>
+              <p>
+                <svg style="vertical-align:middle;margin-right:0.4em" viewBox="0 0 24 24" fill="currentColor" width="15" height="15"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <a href="https://www.linkedin.com/in/sueda-nisa-okutan-a091b7252/" target="_blank" rel="noopener">linkedin.com/in/sueda-nisa-okutan</a>
+              </p>
+              <p>
+                <svg style="vertical-align:middle;margin-right:0.4em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                <a href="sueda_okutan_cv.pdf" target="_blank" rel="noopener">CV</a>
+              </p>
+            </section>
+          </main>
+        </div>
+      </div>
+
+      <aside class="localtoc">
+        <div class="toc-sticky">
+          <div class="tocwrapper">
+            <div class="toc-header"></div>
+            <nav>
+              <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact &amp; CV</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <aside class="toc-panel-mobile" id="toc-mobile">
+    <div class="tocwrapper">
+      <div class="toc-header"></div>
+      <nav>
+        <ul>
+          <li><a href="#home">Top</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li class="toc-h3"><a href="#project-1">Project Title</a></li>
+          <li class="toc-h3"><a href="#project-2">Project Title</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li class="toc-h3"><a href="#experience-1">Role / Position</a></li>
+          <li class="toc-h3"><a href="#experience-2">Role / Position</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="toc-overlay" id="toc-overlay"></div>
+
+  <footer>
+    <div class="footer-inner">
+    Last updated April 2026.
+    </div>
+  </footer>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("theme-toggle");
+    const tocToggle = document.getElementById("toc-toggle");
+    const leftDrawer = document.getElementById("left-drawer");
+    const mainDocument = document.querySelector(".document");
+    const pageFooter = document.querySelector("footer");
+    const menuBtn = document.querySelector(".menu-btn");
+
+    function openDrawer() {
+      leftDrawer.classList.add("open");
+      mainDocument.classList.add("drawer-open");
+      pageFooter.classList.add("drawer-open");
+      menuBtn.classList.add("open");
+    }
+
+    function closeDrawer() {
+      leftDrawer.classList.remove("open");
+      mainDocument.classList.remove("drawer-open");
+      pageFooter.classList.remove("drawer-open");
+      menuBtn.classList.remove("open");
+    }
+
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      leftDrawer.classList.contains("open") ? closeDrawer() : openDrawer();
+    });
+
+    leftDrawer.addEventListener("click", (e) => e.stopPropagation());
+
+    document.addEventListener("click", () => {
+      if (leftDrawer.classList.contains("open")) closeDrawer();
+    });
+
+    openDrawer();
+
+    // Sync class with actual rendered theme on first load
+    if (!body.classList.contains("dark") && !body.classList.contains("light")) {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        body.classList.add("dark");
+      } else {
+        body.classList.add("light");
+      }
+    }
+    const tocMobile = document.getElementById("toc-mobile");
+    const tocOverlay = document.getElementById("toc-overlay");
+    const tocLinks = document.querySelectorAll('.tocwrapper a');
+    const sections = document.querySelectorAll("main section, main h3[id]");
+
+    themeToggle.addEventListener("click", () => {
+      if (body.classList.contains("dark")) {
+        body.classList.remove("dark");
+        body.classList.add("light");
+      } else if (body.classList.contains("light")) {
+        body.classList.remove("light");
+        body.classList.add("dark");
+      } else {
+        body.classList.add("dark");
+      }
+    });
+
+    function openToc() {
+      tocMobile.classList.add("open");
+      tocOverlay.classList.add("show");
+    }
+
+    function closeToc() {
+      tocMobile.classList.remove("open");
+      tocOverlay.classList.remove("show");
+    }
+
+    if (tocToggle) {
+      tocToggle.addEventListener("click", () => {
+        if (tocMobile.classList.contains("open")) {
+          closeToc();
+        } else {
+          openToc();
+        }
+      });
+    }
+
+    tocOverlay.addEventListener("click", closeToc);
+
+    let scrollLockId = null;
+    let scrollLockTimer = null;
+
+    function lockActive(id) {
+      scrollLockId = id;
+      clearTimeout(scrollLockTimer);
+      scrollLockTimer = setTimeout(() => { scrollLockId = null; }, 1200);
+      setActiveById(id);
+    }
+
+    tocLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        closeToc();
+        lockActive(link.getAttribute("href").slice(1));
+      });
+    });
+
+    // "On this page" header scrolls to top
+    document.querySelectorAll(".toc-header").forEach(el => {
+      el.style.cursor = "pointer";
+      el.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        lockActive("");
+      });
+    });
+
+    // Click on any heading in content → sync TOC
+    // Use the heading's own id, or fall back to its parent section's id
+    document.querySelectorAll("main h1, main h2, main h3").forEach(heading => {
+      heading.style.cursor = "pointer";
+      heading.addEventListener("click", () => {
+        const id = heading.id || heading.closest("section[id]")?.id;
+        if (!id) return;
+        lockActive(id);
+        document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    function setActiveById(id) {
+      tocLinks.forEach(link => {
+        link.classList.remove("active");
+        if (id && link.getAttribute("href") === "#" + id) {
+          link.classList.add("active");
+        }
+      });
+    }
+
+    function setActiveLink() {
+      // While a click-lock is held, don't let scroll override it
+      if (scrollLockId !== null) return;
+
+      const threshold = 130;
+      let best = null;
+      let bestTop = -Infinity;
+      sections.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top <= threshold && top > bestTop) {
+          bestTop = top;
+          best = el;
+        }
+      });
+      setActiveById(best ? best.id : "");
+    }
+
+    window.addEventListener("scroll", setActiveLink);
+    window.addEventListener("load", setActiveLink);
+  </script>
+</body>
+</html>
