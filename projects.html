@@ -887,13 +887,14 @@
 
     openDrawer();
 
-    // Sync class with actual rendered theme on first load
-    if (!body.classList.contains("dark") && !body.classList.contains("light")) {
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        body.classList.add("dark");
-      } else {
-        body.classList.add("light");
-      }
+    // Restore saved theme, or fall back to system preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      body.classList.add(savedTheme);
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      body.classList.add("dark");
+    } else {
+      body.classList.add("light");
     }
     const tocMobile = document.getElementById("toc-mobile");
     const tocOverlay = document.getElementById("toc-overlay");
@@ -902,13 +903,11 @@
 
     themeToggle.addEventListener("click", () => {
       if (body.classList.contains("dark")) {
-        body.classList.remove("dark");
-        body.classList.add("light");
-      } else if (body.classList.contains("light")) {
-        body.classList.remove("light");
-        body.classList.add("dark");
+        body.classList.replace("dark", "light");
+        localStorage.setItem("theme", "light");
       } else {
-        body.classList.add("dark");
+        body.classList.replace("light", "dark");
+        localStorage.setItem("theme", "dark");
       }
     });
 
